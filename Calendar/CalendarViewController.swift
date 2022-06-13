@@ -42,21 +42,17 @@ class CalendarViewController: UIViewController {
     }
 }
 
-extension CalendarViewController: UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
+extension CalendarViewController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.timeZone = TimeZone(abbreviation: "KST")
         
-        let date = Calendar.current.date(from: dateComponents!)!
+        guard let date = Calendar.current.date(from: dateComponents!) else { return }
 
         let selectedDate = formatter.string(from: date)
         
         print(selectedDate)
-    }
-        
-    func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
-        return nil
     }
 }
